@@ -547,5 +547,4 @@ Submit your repository with:
 - All slice code (`controller/`, `service/`, `security/`, `dto/` additions)
 - `PROMPTS.md`  one prompt per slice, template used, follow-ups included
 - `REVIEW.md`  all sections filled, understanding answers in your own words
-#   E S D - L a b 2  
- 
+#
