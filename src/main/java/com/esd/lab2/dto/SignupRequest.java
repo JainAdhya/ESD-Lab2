@@ -1,6 +1,9 @@
 package com.esd.lab2.dto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 /**
  * S1 — FILL IN MANUALLY (no AI for this slice).
@@ -16,11 +19,21 @@ import jakarta.validation.constraints.*;
 public record SignupRequest(
 
         // TODO: add @Email and @NotBlank annotation
+        @NotBlank
+        @Email
         String email,
 
         // TODO: add @NotBlank and @Size(min = 8, max = 64) annotations
+        @NotBlank
+        @Size(min = 8, max = 64)
+        @Pattern(
+    regexp = ".*\\d.*",
+    message = "Password must contain at least one digit"
+)
         String password,
 
         // TODO: add @NotBlank and @Size(max = 100) annotations
+        @NotBlank
+        @Size(max = 100)
         String fullName
 ) {}
