@@ -2,17 +2,23 @@
 
 Complete **one review entry per slice** before moving to the next.
 
+
 ---
 
 ## Slice 1 — Signup (S1)
 
 ### A. Bucket Check
+List every class and method the AI produced. Tag each one:  
+`Controller` / `Service` / `Repository` / `DTO` / `Security` / `Config` / `Exception`
 
 | File / Method | Tag | In Allowed List? |
 |---|---|---|
 | N/A — implemented manually | N/A | N/A |
 
+> **Important:** Anything **not** in the allowed list → **reject, re-prompt**. Don't keep it because it works.
+
 ### B. Contract Check
+Compare against API contract row A1 line by line.
 
 | Check | Pass / Fail |
 |---|---|
@@ -42,6 +48,7 @@ Complete **one review entry per slice** before moving to the next.
 | AI did **not** touch `SecurityConfig`, add JWT class, or add `UserDetailsService` | Pass |
 
 ### E. Understanding Questions
+*Answer in your own words (1–2 lines each)*
 
 1. Where exactly is the password hashed, and why is the same password stored as a different string for two users?
 
@@ -307,9 +314,13 @@ Complete **one review entry per slice** before moving to the next.
 
 | File | What changed and why |
 |---|---|
-| `README.md` | Corrected Markdown formatting, if the escaped characters were present in the actual file. |
-| `REVIEW.md` | Completed the slice review checklist and understanding questions. |
+| `src/main/java/com/esd/lab2/security/JwtService.java` | Changed JWT expiry to 15 minutes and ensured `expiresIn` reflects 900 seconds. |
+| `src/main/java/com/esd/lab2/controller/CourseController.java` | Added public `GET /api/courses/{id}` to retrieve a course by ID. |
+| `src/main/java/com/esd/lab2/service/CourseService.java` | Added course lookup by ID and used `ResourceNotFoundException` when the course does not exist. |
+| `src/main/java/com/esd/lab2/controller/UserController.java` | Added authenticated `PUT /api/users/me` to update the logged-in user's full name only. |
+| `src/main/java/com/esd/lab2/dto/SignupRequest.java` | Added password validation requiring at least one digit, returning HTTP 400 with a field error when invalid. |
+| `src/main/java/com/esd/lab2/config/SecurityConfig.java` | Changed `GET /api/courses` from public to authenticated access. |
 
 **Explanation (your own words):**
 
-> The review document records the allowed files, API contract checks, security checks, and understanding questions for each lab slice. The README formatting correction makes the Markdown easier to read. The actual implementation and test results should be checked before final submission.
+> I reduced the JWT expiry to 15 minutes and updated `expiresIn` accordingly. I added a public endpoint to retrieve a course by ID, returning 404 when the course does not exist. I added an authenticated endpoint allowing users to update only their own full name. I strengthened signup validation to require at least one digit in the password. Finally, I made `GET /api/courses` require authentication instead of being public. Tests expecting `GET /api/courses` to succeed without a token will now fail and must be updated to expect 401 or provide a valid token.
